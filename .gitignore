@@ -147,3 +147,19 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Node / React
+node_modules/
+dist/
+.env
+
+# Database credentials (NEVER commit)
+backend/config/db.php
+
+# Editor / system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# XAMPP / logs
+*.log
