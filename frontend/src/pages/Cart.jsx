@@ -1,16 +1,46 @@
 import { useState } from "react";
 
+const CART_KEY = "gifthub_cart";
+
 function loadCart() {
   try {
-    const saved = localStorage.getItem("gifthub_cart");
+    const saved = localStorage.getItem(CART_KEY);
     return saved ? JSON.parse(saved) : [];
   } catch (error) {
     return [];
   }
 }
 
+function saveCart(cart) {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (error) {
+    console.error("Could not save cart", error);
+  }
+}
+
 function Cart() {
-  const [cart] = useState(loadCart);
+  const [cart, setCart] = useState(loadCart);
+
+  function updateCart(newCart) {
+    setCart(newCart);
+    saveCart(newCart);
+  }
+
+  function changeQuantity(productId, change) {
+    const newCart = cart.map((item) => {
+      if (item.product_id === productId) {
+        return { ...item, quantity: Math.max(1, item.quantity + change) };
+      }
+      return item;
+    });
+    updateCart(newCart);
+  }
+
+  function removeItem(productId) {
+    const newCart = cart.filter((item) => item.product_id !== productId);
+    updateCart(newCart);
+  }
 
   const total = cart.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
@@ -27,7 +57,11 @@ function Cart() {
           <ul>
             {cart.map((item) => (
               <li key={item.product_id}>
-                {item.name} - {Number(item.price).toFixed(2)} x {item.quantity}
+                {item.name} - {Number(item.price).toFixed(2)}
+                <button onClick={() => changeQuantity(item.product_id, -1)}>-</button>
+                {item.quantity}
+                <button onClick={() => changeQuantity(item.product_id, 1)}>+</button>
+                <button onClick={() => removeItem(item.product_id)}>Remove</button>
               </li>
             ))}
           </ul>
