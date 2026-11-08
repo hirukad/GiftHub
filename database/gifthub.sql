@@ -71,3 +71,13 @@ INSERT INTO categories (name, description) VALUES
 ('Birthday Gifts', 'Special gifts for birthdays'),
 ('Anniversary Gifts', 'Gifts for anniversaries and couples'),
 ('Personalized Gifts', 'Custom-made gifts for loved ones');
+
+-- Sample products
+INSERT INTO products
+(name, description, price, image, category_id, stock)
+VALUES
+('Personalized Mug', 'A custom mug for someone special', 1500.00, 'mug.jpg', 3, 20),
+('Birthday Gift Box', 'A beautiful birthday gift box', 2500.00, 'giftbox.jpg', 1, 15),
+('Anniversary Photo Frame', 'A special photo frame for couples', 1800.00, 'frame.jpg', 2, 10),
+('Personalized Keychain', 'A customized keychain gift', 800.00, 'keychain.jpg', 3, 30),
+('Birthday Teddy Bear', 'A soft teddy bear for birthdays', 2200.00, 'teddy.jpg', 1, 12);
