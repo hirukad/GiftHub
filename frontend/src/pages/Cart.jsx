@@ -37,6 +37,16 @@ function Cart() {
     updateCart(newCart);
   }
 
+  function changeText(productId, field, value) {
+    const newCart = cart.map((item) => {
+      if (item.product_id === productId) {
+        return { ...item, [field]: value };
+      }
+      return item;
+    });
+    updateCart(newCart);
+  }
+
   function removeItem(productId) {
     const newCart = cart.filter((item) => item.product_id !== productId);
     updateCart(newCart);
@@ -62,6 +72,26 @@ function Cart() {
                 {item.quantity}
                 <button onClick={() => changeQuantity(item.product_id, 1)}>+</button>
                 <button onClick={() => removeItem(item.product_id)}>Remove</button>
+                <div>
+                  <label>Recipient name (optional)</label>
+                  <input
+                    type="text"
+                    maxLength={100}
+                    value={item.custom_name || ""}
+                    onChange={(e) =>
+                      changeText(item.product_id, "custom_name", e.target.value)
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Gift message (optional)</label>
+                  <textarea
+                    value={item.custom_message || ""}
+                    onChange={(e) =>
+                      changeText(item.product_id, "custom_message", e.target.value)
+                    }
+                  />
+                </div>
               </li>
             ))}
           </ul>
