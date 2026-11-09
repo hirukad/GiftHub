@@ -7,6 +7,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import MyOrders from "./pages/MyOrders";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -21,8 +22,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<MyOrders />} />
-          
-                    <Route path="*" element={<p>Page not found or not built yet.</p>} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="*" element={<p>Page not found or not built yet.</p>} />
 
         </Routes>
       </main>
