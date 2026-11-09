@@ -65,3 +65,30 @@ Request: order_id, status
 - Roles: customer, admin
 - Never rename JSON fields in React. Use snake_case exactly.
 - Any change to this file must go through the team lead (Member 1).
+
+## Agreed decisions (updated 09/11)
+
+| Topic                 | Decision                                               |
+| --------------------- | ------------------------------------------------------ | --- |
+| payment_method value  | `COD` (exactly this text, capital letters)             |
+| categories columns    | `category_id`, `name`, `description`, `created_at`     |     |
+| Optional colour field | NOT in MVP (dropped)                                   |
+| manage_products.php   | Uses an `action` field: `create`, `update` or `delete` |
+| Admin product image   | Admin types the image file name (no upload in MVP)     |
+| Order statuses        | `Pending`, `Processing`, `Delivered`, `Cancelled`      |
+| Base URL (api.js)     | `http://localhost/GiftHub/backend/`                    |
+| Cookies               | `withCredentials: true` in api.js                      |
+| Allowed origin (CORS) | `http://localhost:5173` only (never `*`)               |
+| localStorage keys     | `gifthub_cart`, `gifthub_user` only                    |
+| PHP session keys      | `user_id`, `role`, `name`                              |
+
+## Response shape (all endpoints)
+
+{ "success": true/false, "message": "...", "data": ... }
+
+## Still open (owner must answer)
+
+- Admin "get all orders" endpoint name: Member 5 to propose
+  (may JOIN `users` to include customer name)
+- helpers.php: session_start(), JSON header, CORS headers and
+  require_admin() status codes: Member 3 to confirm
