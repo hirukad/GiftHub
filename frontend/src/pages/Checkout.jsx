@@ -1,21 +1,28 @@
 import { useState } from "react";
+import api from "../services/api";
 
-const PAYMENT_METHOD = "COD"; // provisional, waiting for Member 1 to confirm
+import { loadCart } from "../services/cartStorage";
+
+const CART_KEY = "gifthub_cart";
+const PAYMENT_METHOD = "COD";
 
 function Checkout() {
+  const [cart] = useState(loadCart);
   const [form, setForm] = useState({
     delivery_name: "",
     delivery_address: "",
     phone: "",
   });
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [orderId, setOrderId] = useState(null);
 
   function handleChange(event) {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (
@@ -28,10 +35,59 @@ function Checkout() {
     }
 
     setError("");
-    console.log("Order data (not sent yet):", {
-      ...form,
+    setSubmitting(true);
+
+    const payload = {
+      delivery_name: form.delivery_name.trim(),
+      delivery_address: form.delivery_address.trim(),
+      phone: form.phone.trim(),
       payment_method: PAYMENT_METHOD,
-    });
+      items: cart.map((item) => ({
+        product_id: item.product_id,
+        quantity: item.quantity,
+        custom_name: item.custom_name || "",
+        custom_message: item.custom_message || "",
+      })),
+    };
+
+    try {
+      const response = await api.post("orders/create_order.php", payload);
+      if (response.data.success) {
+        localStorage.removeItem(CART_KEY);
+        setOrderId(response.data.data.order_id);
+      } else {
+        setError(response.data.message);
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        setError("Please log in to place your order.");
+      } else if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Could not place the order. Please try again.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (orderId) {
+    return (
+      <div>
+        <h1>Order placed</h1>
+        <p>Thank you! Your order number is #{orderId}.</p>
+        <p>Payment: Cash on delivery</p>
+      </div>
+    );
+  }
+
+  if (cart.length === 0) {
+    return (
+      <div>
+        <h1>Checkout</h1>
+        <p>Your cart is empty.</p>
+      </div>
+    );
   }
 
   return (
@@ -68,7 +124,9 @@ function Checkout() {
         </div>
         <p>Payment method: Cash on delivery</p>
         {error && <p>{error}</p>}
-        <button type="submit">Place order</button>
+        <button type="submit" disabled={submitting}>
+          {submitting ? "Placing order..." : "Place order"}
+        </button>
       </form>
     </div>
   );
