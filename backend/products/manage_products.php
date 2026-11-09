@@ -4,9 +4,8 @@ require_once __DIR__ . '/../config/helpers.php';  // send_json(), require_admin(
 
 require_admin(); // non-admins stop here (401 or 403)
 
-// $requestMethod stores how the request was sent: POST, PUT or DELETE.
-$requestMethod = $_SERVER['REQUEST_METHOD'];
-if (!in_array($requestMethod, ['POST', 'PUT', 'DELETE'], true)) {
+// This endpoint only accepts POST. The "action" field says what to do.
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     send_json(false, 'Method not allowed', null);
 }
@@ -16,6 +15,13 @@ $requestBody = json_decode(file_get_contents('php://input'), true);
 if (!is_array($requestBody)) {
     http_response_code(400);
     send_json(false, 'Invalid JSON body', null);
+}
+
+// $action stores what the admin wants: create, update or delete.
+$action = $requestBody['action'] ?? '';
+if (!in_array($action, ['create', 'update', 'delete'], true)) {
+    http_response_code(400);
+    send_json(false, 'action must be create, update or delete', null);
 }
 
 // Checks name, description, price, image, category_id, stock.
@@ -67,7 +73,7 @@ function validate_product_input($requestBody) {
 }
 
 try {
-    if ($requestMethod === 'POST') {
+    if ($action === 'create') {
         // ---------- CREATE ----------
         $productFields = validate_product_input($requestBody);
         $saveStatement = $pdo->prepare(
@@ -87,7 +93,7 @@ try {
         send_json(true, 'Product created', $productFields);
     }
 
-    // PUT and DELETE both need a valid product_id that exists.
+    // update and delete both need a valid product_id that exists.
     $productId = filter_var($requestBody['product_id'] ?? null, FILTER_VALIDATE_INT);
     if ($productId === false || $productId < 1) {
         http_response_code(400);
@@ -100,7 +106,7 @@ try {
         send_json(false, 'Product not found', null);
     }
 
-    if ($requestMethod === 'PUT') {
+    if ($action === 'update') {
         // ---------- UPDATE ----------
         $productFields = validate_product_input($requestBody);
         $saveStatement = $pdo->prepare(
@@ -122,7 +128,7 @@ try {
         send_json(true, 'Product updated', $productFields);
     }
 
-    // ---------- DELETE ----------
+    // ---------- DELETE (the only action left) ----------
     $saveStatement = $pdo->prepare('DELETE FROM products WHERE product_id = :product_id');
     $saveStatement->execute([':product_id' => $productId]);
     send_json(true, 'Product deleted', ['product_id' => $productId]);
