@@ -69,9 +69,9 @@ Request: order_id, status
 ## Agreed decisions (updated 09/11)
 
 | Topic                 | Decision                                               |
-| --------------------- | ------------------------------------------------------ | --- |
+| --------------------- | ------------------------------------------------------ |
 | payment_method value  | `COD` (exactly this text, capital letters)             |
-| categories columns    | `category_id`, `name`, `description`, `created_at`     |     |
+| categories columns    | `category_id`, `name`, `description`, `created_at`     |
 | Optional colour field | NOT in MVP (dropped)                                   |
 | manage_products.php   | Uses an `action` field: `create`, `update` or `delete` |
 | Admin product image   | Admin types the image file name (no upload in MVP)     |
@@ -82,9 +82,7 @@ Request: order_id, status
 | localStorage keys     | `gifthub_cart`, `gifthub_user` only                    |
 | PHP session keys      | `user_id`, `role`, `name`                              |
 
-## Response shape (all endpoints)
-
-{ "success": true/false, "message": "...", "data": ... }
+## Still open (owner must answer)
 
 ## Still open (owner must answer)
 
@@ -92,3 +90,4 @@ Request: order_id, status
   (may JOIN `users` to include customer name)
 - helpers.php: session_start(), JSON header, CORS headers and
   require_admin() status codes: Member 3 to confirm
+- Admin product endpoint name (manage_products.php?): Member 5 + Member 2 to agree
