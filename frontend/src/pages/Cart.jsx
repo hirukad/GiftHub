@@ -1,23 +1,5 @@
 import { useState } from "react";
-
-const CART_KEY = "gifthub_cart";
-
-function loadCart() {
-  try {
-    const saved = localStorage.getItem(CART_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveCart(cart) {
-  try {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  } catch (error) {
-    console.error("Could not save cart", error);
-  }
-}
+import { loadCart, saveCart } from "../services/cartStorage";
 
 function Cart() {
   const [cart, setCart] = useState(loadCart);
