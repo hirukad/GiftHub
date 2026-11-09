@@ -6,7 +6,7 @@ function loadCart() {
   try {
     const saved = localStorage.getItem(CART_KEY);
     return saved ? JSON.parse(saved) : [];
-  } catch (error) {
+  } catch {
     return [];
   }
 }
