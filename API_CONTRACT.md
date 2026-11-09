@@ -13,17 +13,17 @@ On failure: `"success": false`, with a clear `message`, and `data` = null.
 
 ## Endpoints and owners
 
-| Method                       | Endpoint                      | Owner    | Auth      |
-| ---------------------------- | ----------------------------- | -------- | --------- |
-| GET                          | products/get_products.php     | Member 2 | public    |
-| GET                          | products/get_product.php?id=1 | Member 2 | public    |
-| POST                         | auth/register.php             | Member 3 | public    |
-| POST                         | auth/login.php                | Member 3 | public    |
-| POST                         | auth/logout.php               | Member 3 | logged in |
-| POST                         | orders/create_order.php       | Member 4 | customer  |
-| GET                          | orders/get_orders.php         | Member 4 | customer  |
-| POST                         | products/manage_products.php  | Member 5 | admin     |
-| Order status update          | admin/update_order.php        | Member 5 | admin     |
+| Method | Endpoint                      | Owner    | Auth      |
+| ------ | ----------------------------- | -------- | --------- |
+| GET    | products/get_products.php     | Member 2 | public    |
+| GET    | products/get_product.php?id=1 | Member 2 | public    |
+| POST   | auth/register.php             | Member 3 | public    |
+| POST   | auth/login.php                | Member 3 | public    |
+| POST   | auth/logout.php               | Member 3 | logged in |
+| POST   | orders/create_order.php       | Member 4 | customer  |
+| GET    | orders/get_orders.php         | Member 4 | customer  |
+| POST   | products/manage_products.php  | Member 5 | admin     |
+| POST   | admin/update_order.php        | Member 5 | admin     |
 
 ## Request / response fields
 
@@ -61,6 +61,7 @@ Request: order_id, status
 ### products/manage_products.php (POST, JSON body, admin only)
 
 Request: action ("create" | "update" | "delete")
+
 - create: name, description, price, image, category_id, stock
 - update: product_id plus the same fields as create
 - delete: product_id
@@ -91,8 +92,6 @@ Delete is refused with HTTP 409 if the product is already in an order.
 | Allowed origin (CORS) | `http://localhost:5173` only (never `*`)               |
 | localStorage keys     | `gifthub_cart`, `gifthub_user` only                    |
 | PHP session keys      | `user_id`, `role`, `name`                              |
-
-## Still open (owner must answer)
 
 ## Still open (owner must answer)
 
