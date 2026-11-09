@@ -22,7 +22,7 @@ On failure: `"success": false`, with a clear `message`, and `data` = null.
 | POST                         | auth/logout.php               | Member 3 | logged in |
 | POST                         | orders/create_order.php       | Member 4 | customer  |
 | GET                          | orders/get_orders.php         | Member 4 | customer  |
-| Product create/update/delete | (name agreed by Member 2 + 5) | Member 5 | admin     |
+| POST                         | products/manage_products.php  | Member 5 | admin     |
 | Order status update          | admin/update_order.php        | Member 5 | admin     |
 
 ## Request / response fields
@@ -57,6 +57,16 @@ order_id, order_date, total, status, delivery_name, delivery_address, phone, pay
 
 Request: order_id, status
 (status values: Pending, Processing, Delivered, Cancelled)
+
+### products/manage_products.php (POST, JSON body, admin only)
+
+Request: action ("create" | "update" | "delete")
+- create: name, description, price, image, category_id, stock
+- update: product_id plus the same fields as create
+- delete: product_id
+
+Response data: the saved product (create, update) or { product_id } (delete)
+Delete is refused with HTTP 409 if the product is already in an order.
 
 ## Rules
 
