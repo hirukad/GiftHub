@@ -350,3 +350,8 @@
   font-family: Georgia, "Times New Roman", serif;
   font-weight: bold;
 }
+.shop-api-message {
+  margin: 0 0 16px;
+  color: #665f55;
+  font-size: 14px;
+}

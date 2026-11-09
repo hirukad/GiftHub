@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../services/services";
 import ProductCard from "../components/ProductCard";
-import "./Shop.css";
 import roseBouquetImage from "../assets/rose-bouquet.png";
 import personalisedMugImage from "../assets/personalised-mug.jpg";
 import giftBoxImage from "../assets/gift-box.png";
+import "./Shop.css";
 
 const sampleProducts = [
   {
@@ -36,9 +37,36 @@ const sampleProducts = [
 ];
 
 function Shop() {
-  const [products] = useState(sampleProducts);
+  const [products, setProducts] = useState(sampleProducts);
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [productMessage, setProductMessage] = useState(
+    "Showing sample products until the product API is ready."
+  );
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const response = await api.get("products/get_products.php");
+        const apiResult = response.data;
+
+        if (apiResult.success && Array.isArray(apiResult.data)) {
+          setProducts(apiResult.data);
+          setProductMessage("");
+        } else {
+          setProductMessage(
+            apiResult.message || "Could not load products; sample products are shown."
+          );
+        }
+      } catch {
+        setProductMessage(
+          "Product API is not available yet; sample products are shown."
+        );
+      }
+    }
+
+    loadProducts();
+  }, []);
 
   const filteredProducts = products.filter((product) => {
     const productText = `${product.name} ${product.description}`.toLowerCase();
@@ -83,6 +111,10 @@ function Shop() {
             <option value="3">Gift boxes (sample ID)</option>
           </select>
         </div>
+
+        {productMessage && (
+          <p className="shop-api-message">{productMessage}</p>
+        )}
 
         <div className="shop-product-grid">
           {filteredProducts.map((product) => (

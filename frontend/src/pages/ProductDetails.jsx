@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./ProductDetails.css";
+import api from "../services/services";
 import roseBouquetImage from "../assets/rose-bouquet.png";
 import personalisedMugImage from "../assets/personalised-mug.jpg";
 import giftBoxImage from "../assets/gift-box.png";
+import "./ProductDetails.css";
 
 const sampleProducts = [
   {
@@ -37,11 +39,54 @@ const sampleProducts = [
 function ProductDetails() {
   const { id: routeProductId } = useParams();
 
-  const selectedProduct = sampleProducts.find(
-    (product) => String(product.product_id) === routeProductId
+  const [selectedProduct, setSelectedProduct] = useState(() =>
+    sampleProducts.find(
+      (product) => String(product.product_id) === routeProductId
+    ) ?? null
   );
 
+  useEffect(() => {
+    let isCurrentRequest = true;
+
+    const fallbackProduct = sampleProducts.find(
+      (product) => String(product.product_id) === routeProductId
+    );
+
+    setSelectedProduct(fallbackProduct ?? null);
+
+    async function loadProduct() {
+      try {
+        const response = await api.get(
+          `products/get_product.php?id=${routeProductId}`
+        );
+        const apiResult = response.data;
+
+        if (
+          isCurrentRequest &&
+          apiResult.success &&
+          apiResult.data &&
+          !Array.isArray(apiResult.data)
+        ) {
+          setSelectedProduct(apiResult.data);
+        }
+      } catch {
+        // Keep showing the sample product while the endpoint is unavailable.
+      }
+    }
+
+    loadProduct();
+
+    return () => {
+      isCurrentRequest = false;
+    };
+  }, [routeProductId]);
+
   if (!selectedProduct) {
+    const productImageSource = selectedProduct.image
+  ? selectedProduct.image.startsWith("/")
+    ? selectedProduct.image
+    : `/images/${selectedProduct.image}`
+  : "";
     return (
       <main className="pdetail-page">
         <p className="pdetail-message">We couldn’t find that gift.</p>
@@ -63,7 +108,7 @@ function ProductDetails() {
           {selectedProduct.image ? (
             <img
               className="pdetail-image"
-              src={selectedProduct.image}
+              src={productImageSource}
               alt={selectedProduct.name}
             />
           ) : (

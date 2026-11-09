@@ -1,10 +1,15 @@
 function ProductCard({ product }) {
+  const productImageSource = product.image
+  ? product.image.startsWith("/")
+    ? product.image
+    : `/images/${product.image}`
+  : "";
   return (
     <article className="pcard-card">
       {product.image ? (
         <img
           className="pcard-image"
-          src={product.image}
+          src={productImageSource}
           alt={product.name}
         />
       ) : (
