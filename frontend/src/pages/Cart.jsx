@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loadCart, saveCart } from "../services/cartStorage";
 
 function Cart() {
   const [cart, setCart] = useState(loadCart);
+  const navigate = useNavigate();
 
   function updateCart(newCart) {
     setCart(newCart);
@@ -78,6 +80,7 @@ function Cart() {
             ))}
           </ul>
           <p>Total: {total.toFixed(2)}</p>
+          <button onClick={() => navigate("/checkout")}>Proceed to Checkout</button>
         </>
       )}
     </div>

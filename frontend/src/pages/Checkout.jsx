@@ -1,17 +1,10 @@
 import { useState } from "react";
 import api from "../services/api";
 
-const CART_KEY = "gifthub_cart";
-const PAYMENT_METHOD = "COD"; // decided by Member 1
+import { loadCart } from "../services/cartStorage";
 
-function loadCart() {
-  try {
-    const saved = localStorage.getItem(CART_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch {
-    return [];
-  }
-}
+const CART_KEY = "gifthub_cart";
+const PAYMENT_METHOD = "COD";
 
 function Checkout() {
   const [cart] = useState(loadCart);
