@@ -84,8 +84,10 @@ Request: order_id, status
 
 ## Still open (owner must answer)
 
+## Still open (owner must answer)
+
 - Admin "get all orders" endpoint name: Member 5 to propose
   (may JOIN `users` to include customer name)
 - helpers.php: session_start(), JSON header, CORS headers and
   require_admin() status codes: Member 3 to confirm
-  - Admin product endpoint name (manage_products.php?): Member 5 + Member 2 to agree
+- Admin product endpoint name (manage_products.php?): Member 5 + Member 2 to agree
