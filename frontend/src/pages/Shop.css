@@ -201,7 +201,7 @@
   width: 100%;
   height: 190px;
   place-items: center;
-  object-fit: cover;
+  object-fit: contain;
   background: linear-gradient(135deg, #f1dfd0, #e7d3bf);
 }
 
@@ -354,4 +354,67 @@
   margin: 0 0 16px;
   color: #665f55;
   font-size: 14px;
+}
+.shop-search,
+.shop-category,
+.shop-price-range {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #d8cbbd;
+  border-radius: 8px;
+  background-color: #fffdf9;
+  color: #202b22;
+  font: inherit;
+}
+
+.shop-search:focus,
+.shop-category:focus,
+.shop-price-range:focus {
+  outline: 2px solid #536348;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  .shop-search,
+  .shop-category,
+  .shop-price-range {
+    width: 100%;
+  }
+}
+.shop-sort {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #d8cbbd;
+  border-radius: 8px;
+  background-color: #fffdf9;
+  color: #202b22;
+  font: inherit;
+}
+
+.shop-sort:focus {
+  outline: 2px solid #536348;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  .shop-sort {
+    width: 100%;
+  }
+}
+.pcard-stock {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.pcard-stock-available {
+  color: #367a3c;
+}
+
+.pcard-stock-sold-out {
+  color: #a33b32;
+}
+
+.pcard-stock-low {
+  color: #b26a16;
 }
