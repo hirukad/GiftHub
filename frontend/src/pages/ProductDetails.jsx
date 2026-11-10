@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import api from "../services/services";
+import api from "../services/api";
+import { addToCart } from "../services/cartStorage";
 import roseBouquetImage from "../assets/rose-bouquet.png";
 import personalisedMugImage from "../assets/personalised-mug.jpg";
 import giftBoxImage from "../assets/gift-box.png";
@@ -82,11 +83,6 @@ function ProductDetails() {
   }, [routeProductId]);
 
   if (!selectedProduct) {
-    const productImageSource = selectedProduct.image
-  ? selectedProduct.image.startsWith("/")
-    ? selectedProduct.image
-    : `/images/${selectedProduct.image}`
-  : "";
     return (
       <main className="pdetail-page">
         <p className="pdetail-message">We couldn’t find that gift.</p>
@@ -96,6 +92,14 @@ function ProductDetails() {
       </main>
     );
   }
+
+  const productImageSource = selectedProduct.image
+    ? selectedProduct.image.startsWith("/")
+      ? selectedProduct.image
+      : `/images/${selectedProduct.image}`
+    : "";
+
+  const isInStock = Number(selectedProduct.stock) > 0;
 
   return (
     <main className="pdetail-page">
@@ -124,8 +128,17 @@ function ProductDetails() {
           <p className="pdetail-price">Rs. {selectedProduct.price}</p>
           <p className="pdetail-description">{selectedProduct.description}</p>
           <p className="pdetail-stock">
-            {selectedProduct.stock > 0 ? "In stock" : "Currently unavailable"}
+            {isInStock ? "In stock" : "Currently unavailable"}
           </p>
+
+          <button
+            className="pdetail-add-button"
+            type="button"
+            onClick={() => addToCart(selectedProduct, 1, "", "")}
+            disabled={!isInStock}
+          >
+            Add to Cart
+          </button>
         </div>
       </section>
     </main>

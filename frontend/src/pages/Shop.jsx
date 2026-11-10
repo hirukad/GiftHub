@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/services";
+import api from "../services/api";
 import ProductCard from "../components/ProductCard";
 import roseBouquetImage from "../assets/rose-bouquet.png";
 import personalisedMugImage from "../assets/personalised-mug.jpg";
