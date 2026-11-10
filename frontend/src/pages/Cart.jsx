@@ -1,26 +1,10 @@
 import { useState } from "react";
-
-const CART_KEY = "gifthub_cart";
-
-function loadCart() {
-  try {
-    const saved = localStorage.getItem(CART_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch (error) {
-    return [];
-  }
-}
-
-function saveCart(cart) {
-  try {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  } catch (error) {
-    console.error("Could not save cart", error);
-  }
-}
+import { useNavigate } from "react-router-dom";
+import { loadCart, saveCart } from "../services/cartStorage";
 
 function Cart() {
   const [cart, setCart] = useState(loadCart);
+  const navigate = useNavigate();
 
   function updateCart(newCart) {
     setCart(newCart);
@@ -31,6 +15,16 @@ function Cart() {
     const newCart = cart.map((item) => {
       if (item.product_id === productId) {
         return { ...item, quantity: Math.max(1, item.quantity + change) };
+      }
+      return item;
+    });
+    updateCart(newCart);
+  }
+
+  function changeText(productId, field, value) {
+    const newCart = cart.map((item) => {
+      if (item.product_id === productId) {
+        return { ...item, [field]: value };
       }
       return item;
     });
@@ -62,10 +56,31 @@ function Cart() {
                 {item.quantity}
                 <button onClick={() => changeQuantity(item.product_id, 1)}>+</button>
                 <button onClick={() => removeItem(item.product_id)}>Remove</button>
+                <div>
+                  <label>Recipient name (optional)</label>
+                  <input
+                    type="text"
+                    maxLength={100}
+                    value={item.custom_name || ""}
+                    onChange={(e) =>
+                      changeText(item.product_id, "custom_name", e.target.value)
+                    }
+                  />
+                </div>
+                <div>
+                  <label>Gift message (optional)</label>
+                  <textarea
+                    value={item.custom_message || ""}
+                    onChange={(e) =>
+                      changeText(item.product_id, "custom_message", e.target.value)
+                    }
+                  />
+                </div>
               </li>
             ))}
           </ul>
           <p>Total: {total.toFixed(2)}</p>
+          <button onClick={() => navigate("/checkout")}>Proceed to Checkout</button>
         </>
       )}
     </div>
