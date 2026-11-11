@@ -142,10 +142,12 @@ function Shop() {
             onChange={(event) => setSelectedCategory(event.target.value)}
             aria-label="Filter by category"
           >
-            <option value="all">All categories</option>
-            <option value="1">Birthday Gifts</option>
-            <option value="2">Anniversary Gifts</option>
-            <option value="3">Personalized Gifts</option>
+          <option value="all">All categories</option>
+          <option value="1">Mugs &amp; Drinkware</option>
+          <option value="2">Photo Frames</option>
+          <option value="3">Cushions &amp; Home Decor</option>
+          <option value="4">Keychains &amp; Accessories</option>
+          <option value="5">Greeting Cards &amp; Gift Boxes</option> 
           </select>
 
           <select
