@@ -24,6 +24,7 @@ On failure: `"success": false`, with a clear `message`, and `data` = null.
 | GET    | orders/get_orders.php         | Member 4 | customer  |
 | POST   | products/manage_products.php  | Member 5 | admin     |
 | POST   | admin/update_order.php        | Member 5 | admin     |
+| GET    | admin/get_all_orders.php      | Member 5 | admin     |
 
 ## Request / response fields
 
@@ -68,6 +69,12 @@ Request: action ("create" | "update" | "delete")
 
 Response data: the saved product (create, update) or { product_id } (delete)
 Delete is refused with HTTP 409 if the product is already in an order.
+
+### admin/get_all_orders.php (GET, admin only)
+
+Response data: array of
+order_id, user_id, customer_name, order_date, total, status,
+delivery_name, delivery_address, phone, payment_method
 
 ## Rules
 
