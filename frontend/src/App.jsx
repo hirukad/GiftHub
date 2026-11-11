@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetails from "./pages/ProductDetails";
@@ -20,11 +21,21 @@ function App() {
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/orders" element={<MyOrders />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="*" element={<p>Page not found or not built yet.</p>} />
 
+          <Route
+            path="/checkout"
+            element={<ProtectedRoute><Checkout /></ProtectedRoute>}
+          />
+          <Route
+            path="/orders"
+            element={<ProtectedRoute><MyOrders /></ProtectedRoute>}
+          />
+          <Route
+            path="/admin"
+            element={<ProtectedRoute requiredRole="admin"><AdminDashboard /></ProtectedRoute>}
+          />
+
+          <Route path="*" element={<p>Page not found or not built yet.</p>} />
         </Routes>
       </main>
 
