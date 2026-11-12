@@ -1,0 +1,363 @@
+
+/* ==============================
+   GiftHub Cart Page
+================================ */
+
+.cart-page {
+  min-height: 100vh;
+  background: #f8f5ef;
+  padding: 55px 25px;
+  color: #263b2d;
+  font-family: Arial, sans-serif;
+}
+
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Heading */
+
+.cart-heading {
+  margin-bottom: 35px;
+}
+
+.cart-heading h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #263b2d;
+}
+
+.cart-heading p {
+  color: #777;
+  font-size: 16px;
+}
+
+/* Empty Cart */
+
+.cart-empty {
+  background: white;
+  text-align: center;
+  padding: 70px 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.cart-empty h2 {
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.cart-empty p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.cart-shop-button {
+  background: #263b2d;
+  color: white;
+  border: none;
+  padding: 13px 28px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.cart-shop-button:hover {
+  background: #3d5b45;
+}
+
+/* Main Layout */
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Cart Items */
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.cart-item {
+  background: white;
+  padding: 25px;
+  border-radius: 13px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.cart-item-top {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.cart-item-image {
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #f1eee8;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details h3 {
+  font-size: 19px;
+  margin-bottom: 10px;
+  color: #263b2d;
+}
+
+.cart-item-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #a77b43;
+  margin-bottom: 18px;
+}
+
+/* Quantity */
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.quantity-controls button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #263b2d;
+}
+
+.quantity-controls button:hover {
+  color: #a77b43;
+}
+
+.quantity-controls span {
+  font-size: 15px;
+  min-width: 15px;
+  text-align: center;
+}
+
+/* Remove Button */
+
+.cart-remove-button {
+  border: none;
+  background: transparent;
+  color: #c14b4b;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cart-remove-button:hover {
+  color: #8e2525;
+  text-decoration: underline;
+}
+
+/* Personalisation */
+
+.cart-personalisation {
+  border-top: 1px solid #eee;
+  margin-top: 25px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-personalisation h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.cart-personalisation label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+}
+
+.cart-personalisation input,
+.cart-personalisation textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+}
+
+.cart-personalisation input:focus,
+.cart-personalisation textarea:focus {
+  border-color: #607b64;
+}
+
+.cart-personalisation textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+/* Order Summary */
+
+.cart-summary {
+  background: white;
+  padding: 28px;
+  border-radius: 13px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 25px;
+}
+
+.cart-summary h2 {
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  font-size: 15px;
+  color: #666;
+}
+
+.cart-summary-total {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #263b2d;
+}
+
+/* Checkout Button */
+
+.cart-checkout-button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 15px;
+  background: #263b2d;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cart-checkout-button:hover {
+  background: #3d5b45;
+  transform: translateY(-2px);
+}
+
+/* Continue Shopping */
+
+.cart-continue-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background: white;
+  color: #263b2d;
+  border: 1px solid #263b2d;
+  border-radius: 7px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cart-continue-button:hover {
+  background: #f3f5f1;
+}
+
+/* Responsive Design */
+
+@media (max-width: 850px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary {
+    position: static;
+  }
+}
+
+@media (max-width: 550px) {
+  .cart-page {
+    padding: 30px 15px;
+  }
+
+  .cart-heading h1 {
+    font-size: 28px;
+  }
+
+  .cart-item {
+    padding: 17px;
+  }
+
+  .cart-item-top {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .cart-item-image {
+    width: 95px;
+    height: 95px;
+  }
+
+  .cart-remove-button {
+    margin-left: auto;
+  }
+}
+
+/* Stylish Remove Button */
+
+.cart-remove-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: #fff0f0;
+  color: #c0392b;
+  border: 1px solid #f2c4c0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cart-remove-button:hover {
+  background: #c0392b;
+  color: white;
+  border-color: #c0392b;
+  box-shadow: 0 4px 10px rgba(192, 57, 43, 0.2);
+  transform: translateY(-2px);
+}
+
+.cart-remove-button:active {
+  transform: scale(0.96);
+}
