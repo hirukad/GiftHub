@@ -60,6 +60,9 @@ function Cart() {
   const total = cartItems.reduce((sum, item) => {
     return sum + Number(item.price || 0) * Number(item.quantity || 1);
   }, 0);
+  const totalItems = cartItems.reduce((sum, item) => {
+  return sum + Number(item.quantity || 1);
+}, 0);
 
   return (
     <div className="cart-page">
@@ -183,7 +186,7 @@ function Cart() {
 
               <div className="cart-summary-row">
                 <span>Items</span>
-                <span>{cartItems.length}</span>
+                <span>{totalItems}</span>
               </div>
 
               <div className="cart-summary-row">

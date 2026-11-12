@@ -51,6 +51,12 @@ function Checkout() {
       setError("Your cart is empty.");
       return;
     }
+    const phone = form.phone.trim();
+
+if (!/^(?:\+94|0)?7[0-9]{8}$/.test(phone)) {
+  setError("Please enter a valid Sri Lankan mobile number.");
+  return;
+}
 
     const items = cart.map((item) => ({
       product_id: item.product_id,
