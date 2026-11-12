@@ -1,0 +1,121 @@
+
+.auth-container {
+  min-height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #f5f4ef;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 25px rgba(35, 49, 40, 0.07);
+  box-sizing: border-box;
+}
+
+.auth-card h2 {
+  margin: 0 0 10px;
+  color: #293b31;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.auth-card > p {
+  color: #777777;
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-card label {
+  color: #555555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.auth-card input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin-bottom: 12px;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #293b31;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #293b31;
+  box-shadow: 0 0 0 2px rgba(41, 59, 49, 0.08);
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border: 1px solid #293b31;
+  border-radius: 8px;
+  background-color: #293b31;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-card button:hover {
+  background-color: #3b5144;
+}
+
+.auth-card button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.auth-card a {
+  color: #293b31;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+.auth-error {
+  color: #b33b32;
+  background-color: #fff0ee;
+  padding: 12px;
+  border-radius: 7px;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .auth-container {
+    padding: 30px 16px;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+
+  .auth-card h2 {
+    font-size: 25px;
+  }
+}

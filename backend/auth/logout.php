@@ -1,13 +1,10 @@
 <?php
-//This clears the PHP session and logs out the current user.
 
 header("Content-Type: application/json");
 
 require_once __DIR__ . '/../config/helpers.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+start_session_once();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);

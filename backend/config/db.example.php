@@ -1,6 +1,4 @@
 <?php
-// COPY this file to db.php and put your own values.
-// db.php is in .gitignore, so your password never goes to GitHub.
 
 $dbHost = "localhost";
 $dbName = "gifthub";
