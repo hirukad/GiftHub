@@ -66,8 +66,30 @@ CREATE TABLE order_items (
 );
 
 
--- Sample categories
-INSERT INTO categories (name, description) VALUES
-('Birthday Gifts', 'Special gifts for birthdays'),
-('Anniversary Gifts', 'Gifts for anniversaries and couples'),
-('Personalized Gifts', 'Custom-made gifts for loved ones');
+INSERT INTO categories (category_id, name, description)
+VALUES
+(1, 'Mugs & Drinkware', 'Personalized mugs and drinkware, perfect for adding a special touch to everyday moments.'),
+(2, 'Photo Frames', 'Beautiful photo frames to preserve and display your favourite memories and special moments.'),
+(3, 'Cushions & Home Decor', 'Custom cushions and decorative gifts that bring personality and warmth to any space.'),
+(4, 'Keychains & Accessories', 'Personalized keychains, bracelets, and accessories made to keep meaningful memories close.'),
+(5, 'Greeting Cards & Gift Boxes', 'Thoughtful greeting cards and beautifully arranged gift boxes for every special occasion.')
+ON DUPLICATE KEY UPDATE
+name = VALUES(name),
+description = VALUES(description);
+
+
+INSERT INTO products
+(name, description, price, image, category_id, stock)
+VALUES
+('Personalized Mug', 'A personalized mug', 1500.00, 'mug.jpg', 1, 10),
+('Magic Colour-Change Mug', 'A colour-changing personalized mug', 2200.00, 'magic-mug.jpg', 1, 8),
+('Custom Water Bottle', 'A custom water bottle', 2500.00, 'bottle.jpg', 1, 12),
+('Wooden Photo Frame', 'A personalized wooden photo frame', 2800.00, 'wooden-frame.jpg', 2, 10),
+('Collage Photo Frame', 'A collage photo frame', 3500.00, 'collage-frame.jpg', 2, 6),
+('Name Printed Cushion', 'A cushion with a printed name', 2300.00, 'cushion.jpg', 3, 10),
+('Photo Cushion', 'A cushion with a personalized photo', 2600.00, 'photo-cushion.jpg', 3, 8),
+('Engraved Wooden Keychain', 'A wooden keychain with custom engraving', 800.00, 'keychain.jpg', 4, 25),
+('Name Bracelet', 'A bracelet with a personalized name', 1200.00, 'bracelet.jpg', 4, 15),
+('Personalized Greeting Card', 'A greeting card with a custom message', 600.00, 'card.jpg', 5, 30),
+('Mini Gift Box Set', 'A set of mini gift boxes', 3200.00, 'gift-box.jpg', 5, 7),
+('Custom Name Pen', 'A pen personalized with a custom name', 900.00, 'custom-name-pen.jpg', 4, 10);
