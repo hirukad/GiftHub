@@ -1,48 +1,69 @@
+/* --- Navigation Bar --- */
 .layout-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  background-color: #2d8e67;
+  padding: 14px 28px;
+  background-color: #1a3323; /* Deep forest green */
+  color: #f7eedd; /* Warm cream */
+  border-bottom: 1px solid rgba(247, 238, 221, 0.15);
 }
 
 .layout-navbar-logo {
-  color: white;
+  color: #f7eedd;
   font-size: 1.4rem;
   font-weight: bold;
   text-decoration: none;
+  letter-spacing: 0.5px;
 }
 
 .layout-navbar-links {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 20px;
 }
 
 .layout-navbar-links a {
-  color: white;
+  color: #f7eedd;
   text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
 }
 
-.layout-footer {
-  text-align: center;
-  padding: 16px;
-  background-color: #f3e8f7;
-  margin-top: 32px;
+.layout-navbar-links a:hover {
+  opacity: 0.8;
 }
 
+/* --- User Section & Logout Button --- */
 .layout-navbar-username {
-  font-weight: bold;
+  color: #f7eedd;
+  font-weight: 600;
 }
 
 .layout-navbar-logout {
-  padding: 6px 14px;
+  padding: 8px 18px;
   border: none;
-  border-radius: 6px;
-  background-color: #d9534f;
-  color: white;
+  border-radius: 9999px; /* Pill shape matching the reference */
+  background-color: #f7eedd; /* Soft cream pill */
+  color: #1a3323; /* Dark green text/icon */
+  font-weight: 600;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .layout-navbar-logout:hover {
-  background-color: #c9302c;
+  background-color: #ede2cd;
+  transform: translateY(-1px);
+}
+
+/* --- Footer --- */
+.layout-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f7eedd; /* Cream background */
+  color: #1a3323; /* Dark forest green text */
+  margin-top: 32px;
+  font-weight: 500;
 }
