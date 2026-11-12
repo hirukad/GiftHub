@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 import ProductCard from "../components/ProductCard";
-import "./Shop.css";
 import roseBouquetImage from "../assets/rose-bouquet.png";
 import personalisedMugImage from "../assets/personalised-mug.jpg";
 import giftBoxImage from "../assets/gift-box.png";
+import "./Shop.css";
 
 const sampleProducts = [
   {
@@ -36,18 +37,81 @@ const sampleProducts = [
 ];
 
 function Shop() {
-  const [products] = useState(sampleProducts);
+  const [products, setProducts] = useState(sampleProducts);
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("all");
+  const [sortOrder, setSortOrder] = useState("default");
+  const [productMessage, setProductMessage] = useState(
+    "Showing sample products until the product API is ready."
+  );
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        const response = await api.get("products/get_products.php");
+        const apiResult = response.data;
+
+        if (apiResult.success && Array.isArray(apiResult.data)) {
+          setProducts(apiResult.data);
+          setProductMessage("");
+        } else {
+          setProductMessage(
+            apiResult.message ||
+              "Could not load products; sample products are shown."
+          );
+        }
+      } catch {
+        setProductMessage(
+          "Product API is not available yet; sample products are shown."
+        );
+      }
+    }
+
+    loadProducts();
+  }, []);
 
   const filteredProducts = products.filter((product) => {
-    const productText = `${product.name} ${product.description}`.toLowerCase();
+    const productText =
+      `${product.name} ${product.description || ""}`.toLowerCase();
     const matchesSearch = productText.includes(searchText.toLowerCase());
+
     const matchesCategory =
       selectedCategory === "all" ||
       String(product.category_id) === selectedCategory;
 
-    return matchesSearch && matchesCategory;
+    const price = Number(product.price);
+    const matchesPrice =
+      selectedPriceRange === "all" ||
+      (selectedPriceRange === "under1000" && price < 1000) ||
+      (selectedPriceRange === "1000to2500" &&
+        price >= 1000 &&
+        price <= 2500) ||
+      (selectedPriceRange === "2500to5000" &&
+        price > 2500 &&
+        price <= 5000) ||
+      (selectedPriceRange === "5000to10000" &&
+        price > 5000 &&
+        price <= 10000) ||
+      (selectedPriceRange === "above10000" && price > 10000);
+
+    return matchesSearch && matchesCategory && matchesPrice;
+  });
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === "priceLowHigh") {
+      return Number(a.price) - Number(b.price);
+    }
+
+    if (sortOrder === "priceHighLow") {
+      return Number(b.price) - Number(a.price);
+    }
+
+    if (sortOrder === "name") {
+      return a.name.localeCompare(b.name);
+    }
+
+    return 0;
   });
 
   return (
@@ -76,24 +140,54 @@ function Shop() {
             className="shop-category"
             value={selectedCategory}
             onChange={(event) => setSelectedCategory(event.target.value)}
+            aria-label="Filter by category"
           >
-            <option value="all">All categories</option>
-            <option value="1">Flowers (sample ID)</option>
-            <option value="2">Mugs (sample ID)</option>
-            <option value="3">Gift boxes (sample ID)</option>
+          <option value="all">All categories</option>
+          <option value="1">Mugs &amp; Drinkware</option>
+          <option value="2">Photo Frames</option>
+          <option value="3">Cushions &amp; Home Decor</option>
+          <option value="4">Keychains &amp; Accessories</option>
+          <option value="5">Greeting Cards &amp; Gift Boxes</option> 
+          </select>
+
+          <select
+            className="shop-price-range"
+            value={selectedPriceRange}
+            onChange={(event) => setSelectedPriceRange(event.target.value)}
+            aria-label="Filter by price"
+          >
+            <option value="all">All prices</option>
+            <option value="under1000">Under Rs. 1,000</option>
+            <option value="1000to2500">Rs. 1,000–2,500</option>
+            <option value="2500to5000">Rs. 2,500–5,000</option>
+            <option value="5000to10000">Rs. 5,000–10,000</option>
+            <option value="above10000">Above Rs. 10,000</option>
+          </select>
+
+          <select
+            className="shop-sort"
+            value={sortOrder}
+            onChange={(event) => setSortOrder(event.target.value)}
+            aria-label="Sort products"
+          >
+            <option value="default">Sort by</option>
+            <option value="priceLowHigh">Price: low to high</option>
+            <option value="priceHighLow">Price: high to low</option>
+            <option value="name">Name: A to Z</option>
           </select>
         </div>
 
+        {productMessage && (
+          <p className="shop-api-message">{productMessage}</p>
+        )}
+
         <div className="shop-product-grid">
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.product_id}
-              product={product}
-            />
+          {sortedProducts.map((product) => (
+            <ProductCard key={product.product_id} product={product} />
           ))}
         </div>
 
-        {filteredProducts.length === 0 && (
+        {sortedProducts.length === 0 && (
           <p className="shop-empty-message">No matching gifts found.</p>
         )}
       </section>
