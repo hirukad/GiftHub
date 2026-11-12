@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./ProductDetails.css";
+import api from "../services/api";
+import { addToCart } from "../services/cartStorage";
 import roseBouquetImage from "../assets/rose-bouquet.png";
 import personalisedMugImage from "../assets/personalised-mug.jpg";
 import giftBoxImage from "../assets/gift-box.png";
+import "./ProductDetails.css";
 
 const sampleProducts = [
   {
@@ -37,9 +40,47 @@ const sampleProducts = [
 function ProductDetails() {
   const { id: routeProductId } = useParams();
 
-  const selectedProduct = sampleProducts.find(
-    (product) => String(product.product_id) === routeProductId
+  const [selectedProduct, setSelectedProduct] = useState(() =>
+    sampleProducts.find(
+      (product) => String(product.product_id) === routeProductId
+    ) ?? null
   );
+
+  useEffect(() => {
+    let isCurrentRequest = true;
+
+    const fallbackProduct = sampleProducts.find(
+      (product) => String(product.product_id) === routeProductId
+    );
+
+    setSelectedProduct(fallbackProduct ?? null);
+
+    async function loadProduct() {
+      try {
+        const response = await api.get(
+          `products/get_product.php?id=${routeProductId}`
+        );
+        const apiResult = response.data;
+
+        if (
+          isCurrentRequest &&
+          apiResult.success &&
+          apiResult.data &&
+          !Array.isArray(apiResult.data)
+        ) {
+          setSelectedProduct(apiResult.data);
+        }
+      } catch {
+        // Keep showing the sample product while the endpoint is unavailable.
+      }
+    }
+
+    loadProduct();
+
+    return () => {
+      isCurrentRequest = false;
+    };
+  }, [routeProductId]);
 
   if (!selectedProduct) {
     return (
@@ -52,6 +93,14 @@ function ProductDetails() {
     );
   }
 
+  const productImageSource = selectedProduct.image
+    ? selectedProduct.image.startsWith("/")
+      ? selectedProduct.image
+      : `/images/${selectedProduct.image}`
+    : "";
+
+  const isInStock = Number(selectedProduct.stock) > 0;
+
   return (
     <main className="pdetail-page">
       <a className="pdetail-back-link" href="/shop">
@@ -63,7 +112,7 @@ function ProductDetails() {
           {selectedProduct.image ? (
             <img
               className="pdetail-image"
-              src={selectedProduct.image}
+              src={productImageSource}
               alt={selectedProduct.name}
             />
           ) : (
@@ -79,8 +128,17 @@ function ProductDetails() {
           <p className="pdetail-price">Rs. {selectedProduct.price}</p>
           <p className="pdetail-description">{selectedProduct.description}</p>
           <p className="pdetail-stock">
-            {selectedProduct.stock > 0 ? "In stock" : "Currently unavailable"}
+            {isInStock ? "In stock" : "Currently unavailable"}
           </p>
+
+          <button
+            className="pdetail-add-button"
+            type="button"
+            onClick={() => addToCart(selectedProduct, 1, "", "")}
+            disabled={!isInStock}
+          >
+            Add to Cart
+          </button>
         </div>
       </section>
     </main>

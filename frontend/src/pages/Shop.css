@@ -119,7 +119,8 @@
 
 .shop-product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 250px));
+  justify-content: center;
   gap: 20px;
 }
 
@@ -194,14 +195,11 @@
   background-color: #fffdf9;
   box-shadow: 0 4px 14px #34291c12;
 }
-
 .pcard-image,
 .pcard-placeholder {
-  display: grid;
   width: 100%;
-  height: 190px;
-  place-items: center;
-  object-fit: cover;
+  height: 210px;
+  object-fit: contain;
   background: linear-gradient(135deg, #f1dfd0, #e7d3bf);
 }
 
@@ -349,4 +347,110 @@
   padding: 12px 8px;
   font-family: Georgia, "Times New Roman", serif;
   font-weight: bold;
+}
+.shop-api-message {
+  margin: 0 0 16px;
+  color: #665f55;
+  font-size: 14px;
+}
+.shop-search,
+.shop-category,
+.shop-price-range {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #d8cbbd;
+  border-radius: 8px;
+  background-color: #fffdf9;
+  color: #202b22;
+  font: inherit;
+}
+
+.shop-search:focus,
+.shop-category:focus,
+.shop-price-range:focus {
+  outline: 2px solid #536348;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  .shop-search,
+  .shop-category,
+  .shop-price-range {
+    width: 100%;
+  }
+}
+.shop-sort {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #d8cbbd;
+  border-radius: 8px;
+  background-color: #fffdf9;
+  color: #202b22;
+  font: inherit;
+}
+
+.shop-sort:focus {
+  outline: 2px solid #536348;
+  outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+  .shop-sort {
+    width: 100%;
+  }
+}
+.pcard-stock {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.pcard-stock-available {
+  color: #367a3c;
+}
+
+.pcard-stock-sold-out {
+  color: #a33b32;
+}
+
+.pcard-stock-low {
+  color: #b26a16;
+}
+.pcard-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.pcard-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.pcard-link {
+  align-self: flex-start;
+  margin-top: auto;
+}
+.pcard-name {
+  height: 2.5em;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pcard-description {
+  height: 4.2em;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pcard-price,
+.pcard-stock {
+  min-height: 1.5em;
 }
