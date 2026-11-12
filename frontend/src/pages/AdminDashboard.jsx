@@ -6,9 +6,9 @@ import "./AdminDashboard.css";
 // Temporary category list (no categories endpoint exists yet).
 // The category_id values MUST match your categories table.
 const categoryOptions = [
-  { category_id: 1, name: "Category 1" },
-  { category_id: 2, name: "Category 2" },
-  { category_id: 3, name: "Category 3" },
+  { category_id: 1, name: "Birthday Gifts" },
+  { category_id: 2, name: "Anniversary Gifts" },
+  { category_id: 3, name: "Personalized Gifts" },
 ];
 
 const orderStatusOptions = ["Pending", "Processing", "Delivered", "Cancelled"];
