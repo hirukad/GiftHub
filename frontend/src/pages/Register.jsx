@@ -35,6 +35,8 @@ function Register() {
           state: { message: "Registration successful! Please log in." },
         });
       } else {
+        console.log("REGISTER RESPONSE:", response.data);
+console.log("TYPE:", typeof response.data);
         setError(response.data.message || "Registration failed");
       }
     } catch (err) {
