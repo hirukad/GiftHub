@@ -12,7 +12,6 @@ function Navbar() {
         <Link to="/shop">Shop</Link>
         <Link to="/cart">Cart</Link>
         <Link to="/orders">My Orders</Link>
-        <Link to="/login">Login</Link>
       </div>
     </nav>
   );
