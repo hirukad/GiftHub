@@ -40,7 +40,7 @@ function App() {
           <Route path="*" element={<p>Page not found or not built yet.</p>} />
           <Route path="/login" element={<Login />} />
                 
-                <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </main>
 
