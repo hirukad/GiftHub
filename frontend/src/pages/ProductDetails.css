@@ -108,3 +108,8 @@
   background-color: #8b8b82;
   cursor: not-allowed;
 }
+.pdetail-description {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.8;
+}
