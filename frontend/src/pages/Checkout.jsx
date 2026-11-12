@@ -121,7 +121,7 @@ if (!/^(?:\+94|0)?7[0-9]{8}$/.test(phone)) {
             Payment Method: Cash on Delivery
           </p>
 
-          <a href="/my-orders" className="checkout-success-button">
+          <a href="/orders" className="checkout-success-button">
             View My Orders
           </a>
         </div>
