@@ -29,3 +29,20 @@
   background-color: #f3e8f7;
   margin-top: 32px;
 }
+
+.layout-navbar-username {
+  font-weight: bold;
+}
+
+.layout-navbar-logout {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #d9534f;
+  color: white;
+  cursor: pointer;
+}
+
+.layout-navbar-logout:hover {
+  background-color: #c9302c;
+}
