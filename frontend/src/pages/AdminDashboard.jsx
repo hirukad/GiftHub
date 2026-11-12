@@ -34,6 +34,11 @@ function AdminDashboard() {
   async function loadProducts() {
     try {
       const response = await api.get("products/get_products.php");
+      if (response.data.success && Array.isArray(response.data.data)) {
+    setProducts(response.data.data);
+  } else {
+  setPageMessage(response.data.message || "Could not load products.");
+  }
       setProducts(response.data.data);
     } catch (error) {
       setPageMessage(getErrorMessage(error));
