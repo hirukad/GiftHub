@@ -89,3 +89,27 @@
     height: 300px;
   }
 }
+.pdetail-add-button {
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 24px;
+  background-color: #20372a;
+  color: #fffaf3;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pdetail-add-button:hover:not(:disabled) {
+  background-color: #35533d;
+}
+
+.pdetail-add-button:disabled {
+  background-color: #8b8b82;
+  cursor: not-allowed;
+}
+.pdetail-description {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.8;
+}
