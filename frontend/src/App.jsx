@@ -9,6 +9,8 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import MyOrders from "./pages/MyOrders";
 import AdminDashboard from "./pages/AdminDashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -36,6 +38,9 @@ function App() {
           />
 
           <Route path="*" element={<p>Page not found or not built yet.</p>} />
+          <Route path="/login" element={<Login />} />
+                
+                <Route path="/register" element={<Register />} />
         </Routes>
       </main>
 
