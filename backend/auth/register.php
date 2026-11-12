@@ -1,11 +1,10 @@
 <?php
-//This code checks the input, prevents duplicate email registrations, 
-// hashes passwords securely, and assigns new users the customer role.
 
 header("Content-Type: application/json");
 
 require_once __DIR__ . '/../config/helpers.php';
 require_once __DIR__ . "/../config/db.php";
+start_session_once();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
@@ -18,6 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 $input = json_decode(file_get_contents("php://input"), true);
+
+if (!is_array($input)) {
+    http_response_code(400);
+    echo json_encode([
+        "success" => false,
+        "message" => "Invalid request data",
+        "data" => null
+    ]);
+    exit;
+}
 
 $name = trim($input["name"] ?? "");
 $email = trim($input["email"] ?? "");

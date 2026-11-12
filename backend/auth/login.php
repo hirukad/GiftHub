@@ -1,15 +1,11 @@
 <?php
-//This code verifies the password hash and creates a PHP session 
-// with the required user_id, name, and role keys.
 
 header("Content-Type: application/json");
 
 require_once __DIR__ . '/../config/helpers.php';
 require_once __DIR__ . "/../config/db.php";
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+start_session_once();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
