@@ -95,13 +95,13 @@ function Cart() {
                   <div className="cart-item-top">
                     <img
                       src={
-                        item.image
-                          ? item.image.startsWith("http") ||
-                            item.image.startsWith("/")
-                            ? item.image
-                            : `/GiftHub/images/${item.image}`
-                          : "/placeholder.png"
-                      }
+                      item.image
+                        ? item.image.startsWith("http") ||
+                          item.image.startsWith("/")
+                          ? item.image
+                          : `/images/${item.image}`
+                        : "/placeholder.png"
+                    }
                       alt={item.name}
                       className="cart-item-image"
                     />
