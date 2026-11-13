@@ -1,5 +1,6 @@
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import api from "../services/api";
+import { saveCart } from "../services/cartStorage";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -19,10 +20,11 @@ function Navbar() {
     } catch (error) {
       console.log("Logout request failed:", error);
     } finally {
-      localStorage.removeItem("gifthub_user");
-      navigate("/login");
+  localStorage.removeItem("gifthub_user");
+  saveCart([]);          // replaces the cart with an empty list
+  navigate("/login");
+}
     }
-  }
 
   const navItems = [
     { to: "/", label: "Home", icon: "⌂", end: true },
