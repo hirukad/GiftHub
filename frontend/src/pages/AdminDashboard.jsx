@@ -25,10 +25,12 @@ function getErrorMessage(error) {
 function AdminDashboard() {
   const [products, setProducts] = useState([]);       // rows for the product table
   const [orders, setOrders] = useState([]);           // rows for the orders table
+  const [customers, setCustomers] = useState([]); // rows for the customers table
   const [productForm, setProductForm] = useState(emptyProductForm);
   const [editingProductId, setEditingProductId] = useState(null); // null = adding
   const [formMessage, setFormMessage] = useState(""); // validation or server error for the form
   const [pageMessage, setPageMessage] = useState(""); // errors loading the page data
+  const [accessDenied, setAccessDenied] = useState(false); // true when the server says 401 or 403
 
   // Loads products from Member 2's endpoint.
   async function loadProducts() {
@@ -52,7 +54,21 @@ function AdminDashboard() {
       setOrders(response.data.data);
       setPageMessage("");
     } catch (error) {
-      setPageMessage(getErrorMessage(error)); // 401/403 show here
+        const statusCode = error.response ? error.response.status : 0;
+        if (statusCode === 401 || statusCode === 403) {
+          setAccessDenied(true); // not an admin: hide the dashboard
+          return;
+        }
+        setPageMessage(getErrorMessage(error));
+    }
+  }
+
+  async function loadCustomers() {
+    try {
+      const response = await api.get("admin/get_customers.php");
+      setCustomers(response.data.data);
+    } catch (error) {
+      // 401/403 is already handled by loadOrders, so ignore it here
     }
   }
 
@@ -60,6 +76,7 @@ function AdminDashboard() {
   useEffect(() => {
     loadProducts();
     loadOrders();
+    loadCustomers();
   }, []);
 
   function handleFormChange(event) {
@@ -143,6 +160,15 @@ function AdminDashboard() {
     return foundCategory ? foundCategory.name : "None";
   }
 
+  if (accessDenied) {
+    return (
+      <div className="admin-page">
+        <h1 className="admin-title">Admin Dashboard</h1>
+        <p className="admin-error">Admin access required. Please log in with an admin account.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="admin-page">
       <h1 className="admin-title">Admin Dashboard</h1>
@@ -195,35 +221,59 @@ function AdminDashboard() {
           </table>
         </div>
       </section>
-
-      <section className="admin-section">
-        <h2 className="admin-subtitle">Customer orders</h2>
+            <section className="admin-section">
+              <h2 className="admin-subtitle">Customer orders</h2>
+              <div className="admin-table-wrap">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th className="admin-th">Order</th><th className="admin-th">Customer</th><th className="admin-th">Date</th>
+                      <th className="admin-th">Deliver to</th><th className="admin-th">Phone</th><th className="admin-th">Payment</th>
+                      <th className="admin-th">Total</th><th className="admin-th">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map((orderRow) => (
+                      <tr key={orderRow.order_id}>
+                        <td className="admin-td">{orderRow.order_id}</td>
+                        <td className="admin-td">{orderRow.customer_name}</td>
+                        <td className="admin-td">{orderRow.order_date}</td>
+                        <td className="admin-td">{orderRow.delivery_name}, {orderRow.delivery_address}</td>
+                        <td className="admin-td">{orderRow.phone}</td>
+                        <td className="admin-td">{orderRow.payment_method}</td>
+                        <td className="admin-td">{Number(orderRow.total)}</td>
+                        <td className="admin-td">
+                          <select className="admin-input" value={orderRow.status} onChange={(event) => handleStatusChange(orderRow.order_id, event.target.value)}>
+                            {orderStatusOptions.map((statusName) => (
+                              <option key={statusName} value={statusName}>{statusName}</option>
+                            ))}
+                          </select>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <section className="admin-section">
+        <h2 className="admin-subtitle">Customers</h2>
         <div className="admin-table-wrap">
           <table className="admin-table">
             <thead>
               <tr>
-                <th className="admin-th">Order</th><th className="admin-th">Customer</th><th className="admin-th">Date</th>
-                <th className="admin-th">Deliver to</th><th className="admin-th">Phone</th><th className="admin-th">Payment</th>
-                <th className="admin-th">Total</th><th className="admin-th">Status</th>
+                <th className="admin-th">ID</th><th className="admin-th">Name</th>
+                <th className="admin-th">Email</th><th className="admin-th">Role</th>
+                <th className="admin-th">Joined</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((orderRow) => (
-                <tr key={orderRow.order_id}>
-                  <td className="admin-td">{orderRow.order_id}</td>
-                  <td className="admin-td">{orderRow.customer_name}</td>
-                  <td className="admin-td">{orderRow.order_date}</td>
-                  <td className="admin-td">{orderRow.delivery_name}, {orderRow.delivery_address}</td>
-                  <td className="admin-td">{orderRow.phone}</td>
-                  <td className="admin-td">{orderRow.payment_method}</td>
-                  <td className="admin-td">{Number(orderRow.total)}</td>
-                  <td className="admin-td">
-                    <select className="admin-input" value={orderRow.status} onChange={(event) => handleStatusChange(orderRow.order_id, event.target.value)}>
-                      {orderStatusOptions.map((statusName) => (
-                        <option key={statusName} value={statusName}>{statusName}</option>
-                      ))}
-                    </select>
-                  </td>
+              {customers.map((customerRow) => (
+                <tr key={customerRow.user_id}>
+                  <td className="admin-td">{customerRow.user_id}</td>
+                  <td className="admin-td">{customerRow.name}</td>
+                  <td className="admin-td">{customerRow.email}</td>
+                  <td className="admin-td">{customerRow.role}</td>
+                  <td className="admin-td">{customerRow.created_at}</td>
                 </tr>
               ))}
             </tbody>

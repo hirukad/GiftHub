@@ -25,6 +25,7 @@ On failure: `"success": false`, with a clear `message`, and `data` = null.
 | POST   | products/manage_products.php  | Member 5 | admin     |
 | POST   | admin/update_order.php        | Member 5 | admin     |
 | GET    | admin/get_all_orders.php      | Member 5 | admin     |
+| GET    | admin/get_customers.php       | Member 5 | admin     |
 
 ## Request / response fields
 
@@ -75,6 +76,12 @@ Delete is refused with HTTP 409 if the product is already in an order.
 Response data: array of
 order_id, user_id, customer_name, order_date, total, status,
 delivery_name, delivery_address, phone, payment_method
+
+### admin/get_customers.php (GET, admin only)
+
+Response data: array of
+user_id, name, email, role, created_at
+(password is never returned)
 
 ## Rules
 
