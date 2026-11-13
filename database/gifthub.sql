@@ -65,6 +65,27 @@ CREATE TABLE order_items (
         REFERENCES products(product_id)
 );
 
+CREATE TABLE occasions (
+    occasion_id INT AUTO_INCREMENT PRIMARY KEY,
+    occasion_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE product_occasions (
+    product_id INT NOT NULL,
+    occasion_id INT NOT NULL,
+
+    PRIMARY KEY (product_id, occasion_id),
+
+    FOREIGN KEY (product_id)
+        REFERENCES products(product_id)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (occasion_id)
+        REFERENCES occasions(occasion_id)
+        ON DELETE CASCADE
+);
+
+
 
 INSERT INTO categories (category_id, name, description)
 VALUES
@@ -92,4 +113,59 @@ VALUES
 ('Name Bracelet', 'A bracelet with a personalized name', 1200.00, 'bracelet.jpg', 4, 15),
 ('Personalized Greeting Card', 'A greeting card with a custom message', 600.00, 'card.jpg', 5, 30),
 ('Mini Gift Box Set', 'A set of mini gift boxes', 3200.00, 'gift-box.jpg', 5, 7),
-('Custom Name Pen', 'A pen personalized with a custom name', 900.00, 'custom-name-pen.jpg', 4, 10);
+('Custom Name Pen', 'A pen personalized with a custom name', 900.00, 'custom-name-pen.jpg', 4, 10),
+('Birthday Backdrop/Setup', 'Decorative birthday backdrop setup', 8500.00, 'birthday-backdrop.jpg', NULL, 8),
+('Birthday Cake', 'Special birthday celebration cake', 4500.00, 'birthday-cake.jpg', NULL, 12),
+('Rose Bouquet', 'Beautiful rose bouquet for special occasions', 5500.00, 'rose-bouquet.png', NULL, 15),
+('Anniversary Rings', 'Decorative anniversary rings', 3500.00, 'anniversary-rings.jpg', 4, 12),
+('Couple Photo Mug', 'Personalized mug featuring a couple photo', 1800.00, 'personalised-mug.jpg', 1, 15),
+('Freestanding Message Plaque', 'Personalized freestanding message plaque', 3200.00, 'message-plaque.jpg', NULL, 10),
+('Chocolates and Wine Gift Box', 'Special chocolates and wine gift box', 7500.00, 'chocolate-wine-gift-box.jpg', 5, 8),
+('Graduation Gift Box', 'Special gift box for graduation celebrations', 4500.00, 'graduation-gift-box.jpg', 5, 10),
+('Personalized Handbag', 'Handbag with personalized details', 4800.00, 'personalized-handbag.jpg', 4, 10),
+('Christmas Chocolates', 'Chocolate gift selection for Christmas', 2500.00, 'christmas-chocolates.jpg', NULL, 20),
+('Christmas Wine Gift Box', 'Wine gift box for Christmas', 6500.00, 'christmas-wine-gift-box.jpg', 5, 10),
+('Christmas Cake', 'Special Christmas celebration cake', 5000.00, 'christmas-cake.jpg', NULL, 12),
+('Christmas Family Wear Set', 'Matching family clothing set for Christmas', 9500.00, 'christmas-family-wear-set.jpg', NULL, 8);
+
+
+INSERT INTO occasions (occasion_id, occasion_name)
+VALUES
+(1, 'Birthdays'),
+(2, 'Anniversaries'),
+(3, 'Graduations'),
+(4, 'Mother''s Day'),
+(5, 'Christmas')
+ON DUPLICATE KEY UPDATE
+occasion_name = VALUES(occasion_name);
+
+
+INSERT INTO product_occasions (product_id, occasion_id)
+VALUES
+(10, 1), (11, 1), (1, 1), (7, 1), (6, 1),
+(10, 2), (11, 2), (9, 2),
+(4, 3), (12, 3), (11, 3), (10, 3), (2, 3),
+(1, 4), (2, 4), (5, 4), (7, 4), (10, 4), (9, 4),
+(11, 5);
+
+INSERT INTO product_occasions (product_id, occasion_id)
+VALUES
+
+(10, 1), (11, 1), (1, 1), (7, 1), (6, 1),
+(13, 1), (14, 1),
+
+
+(10, 2), (11, 2), (9, 2),
+(15, 2), (16, 2), (17, 2), (18, 2), (19, 2),
+
+
+(4, 3), (12, 3), (11, 3), (10, 3), (2, 3),
+(20, 3),
+
+
+(1, 4), (2, 4), (5, 4), (7, 4), (10, 4), (9, 4),
+(21, 4),
+
+
+(11, 5),
+(22, 5), (23, 5), (24, 5), (25, 5);
