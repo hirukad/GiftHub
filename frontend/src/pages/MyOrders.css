@@ -1,0 +1,305 @@
+
+/* GiftHub My Orders Page */
+
+.my-orders-page {
+  min-height: 100vh;
+  background: #f8f5ef;
+  padding: 55px 25px;
+  color: #263b2d;
+  font-family: Arial, sans-serif;
+}
+
+.my-orders-container {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+/* Heading */
+
+.my-orders-heading {
+  margin-bottom: 35px;
+}
+
+.orders-subtitle {
+  color: #a77b43;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.my-orders-heading h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #263b2d;
+}
+
+.my-orders-heading > p:last-child {
+  color: #777;
+  font-size: 15px;
+}
+
+/* Orders Count */
+
+.orders-count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.orders-count-number {
+  padding: 7px 14px;
+  background: #e9eee7;
+  color: #3d5b45;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Orders List */
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Order Card */
+
+.order-card {
+  background: #fff;
+  border: 1px solid #eeeae2;
+  border-radius: 15px;
+  padding: 28px 30px;
+  box-shadow: 0 5px 20px rgba(38, 59, 45, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 25px rgba(38, 59, 45, 0.09);
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.order-label {
+  color: #999;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 7px;
+}
+
+.order-card-header h2 {
+  color: #263b2d;
+  font-size: 21px;
+}
+
+/* Status */
+
+.order-status {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #f5f1e5;
+  color: #94713c;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Order Date */
+
+.order-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  color: #888;
+  font-size: 13px;
+}
+
+.order-date strong {
+  color: #394b3d;
+  font-weight: 600;
+}
+
+/* Divider */
+
+.order-divider {
+  height: 1px;
+  background: #eeeae2;
+  margin: 22px 0;
+}
+
+/* Details */
+
+.order-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 23px 30px;
+}
+
+.order-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.order-detail span {
+  color: #999;
+  font-size: 12px;
+}
+
+.order-detail strong {
+  color: #394b3d;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Total */
+
+.order-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  padding: 18px 20px;
+  background: #f8f5ef;
+  border-radius: 10px;
+}
+
+.order-card-footer span {
+  color: #394b3d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.order-card-footer strong {
+  color: #a77b43;
+  font-size: 20px;
+}
+
+/* Loading / Empty / Error */
+
+.orders-message-card {
+  max-width: 600px;
+  margin: 45px auto;
+  padding: 55px 30px;
+  background: #fff;
+  text-align: center;
+  border: 1px solid #eeeae2;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(38, 59, 45, 0.05);
+}
+
+.orders-message-icon {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  background: #f5f8f3;
+  color: #3d5b45;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.orders-message-card h2 {
+  color: #263b2d;
+  font-size: 23px;
+  margin-bottom: 12px;
+}
+
+.orders-message-card p {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.orders-error .orders-message-icon {
+  background: #fff0f0;
+  color: #c0392b;
+}
+
+/* Loading Spinner */
+
+.orders-loading {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 20px;
+  border: 4px solid #e5e9e2;
+  border-top-color: #3d5b45;
+  border-radius: 50%;
+  animation: orders-spin 0.8s linear infinite;
+}
+
+@keyframes orders-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Shop Button */
+
+.orders-shop-button {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 13px 25px;
+  background: #263b2d;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.orders-shop-button:hover {
+  background: #3d5b45;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+  .my-orders-page {
+    padding: 30px 15px;
+  }
+
+  .my-orders-heading h1 {
+    font-size: 29px;
+  }
+
+  .order-card {
+    padding: 22px 18px;
+  }
+
+  .order-details-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .order-card-footer {
+    padding: 15px;
+  }
+
+  .order-card-footer strong {
+    font-size: 17px;
+  }
+
+  .orders-count {
+    font-size: 15px;
+  }
+}

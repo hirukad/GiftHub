@@ -1,24 +1,46 @@
-import { NavLink } from "react-router-dom";
-
-function getUserName() {
-  try {
-    const user = JSON.parse(localStorage.getItem("gifthub_user") || "null");
-    return user?.name || "GiftHub Member";
-  } catch {
-    return "GiftHub Member";
-  }
-}
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import api from "../services/api";
 
 function Navbar() {
-  const userName = getUserName();
+  const navigate = useNavigate();
+  useLocation(); // Re-check the saved user when the page changes.
+
+  let currentUser = null;
+
+  try {
+    currentUser = JSON.parse(localStorage.getItem("gifthub_user"));
+  } catch {
+    currentUser = null;
+  }
+
+  async function handleLogout() {
+    try {
+      await api.post("auth/logout.php");
+    } catch (error) {
+      console.log("Logout request failed:", error);
+    } finally {
+      localStorage.removeItem("gifthub_user");
+      navigate("/login");
+    }
+  }
 
   const navItems = [
     { to: "/", label: "Home", icon: "⌂", end: true },
     { to: "/shop", label: "Shop", icon: "▣" },
     { to: "/cart", label: "Cart", icon: "🛒" },
     { to: "/orders", label: "My Orders", icon: "♡" },
-    { to: "/admin", label: "Admin", icon: "♙" },
   ];
+
+  if (currentUser?.role === "admin") {
+    navItems.push({ to: "/admin", label: "Admin", icon: "♙" });
+  }
+
+  if (currentUser === null) {
+    navItems.push(
+      { to: "/login", label: "Login" },
+      { to: "/register", label: "Register" }
+    );
+  }
 
   return (
     <header className="site-header">
@@ -37,18 +59,29 @@ function Navbar() {
               `site-nav-link${isActive ? " is-active" : ""}`
             }
           >
-            <span className="site-nav-icon" aria-hidden="true">
-              {item.icon}
-            </span>
+            {item.icon && (
+              <span className="site-nav-icon" aria-hidden="true">
+                {item.icon}
+              </span>
+            )}
             <span>{item.label}</span>
           </NavLink>
         ))}
       </nav>
 
-      <div className="site-account">
-        <span className="site-account-avatar" aria-hidden="true">●</span>
-        <span className="site-account-name">{userName}</span>
-      </div>
+      {currentUser && (
+        <div className="site-account">
+          <span className="site-account-avatar" aria-hidden="true">●</span>
+          <span className="site-account-name">{currentUser.name}</span>
+          <button
+            className="layout-navbar-logout"
+            type="button"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </header>
   );
 }

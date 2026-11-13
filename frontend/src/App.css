@@ -17,8 +17,9 @@
   flex: 1;
 }
 
-/* Header */
-.site-header {
+/* Header: supports both Navbar versions */
+.site-header,
+.layout-navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -29,7 +30,7 @@
   gap: 24px;
   padding: 10px 3%;
   border-bottom: 1px solid rgba(235, 222, 202, 0.3);
-   background: #183b28;
+  background: #183b28;
   color: #fffaf3;
 }
 
@@ -48,20 +49,25 @@
   font-size: 30px;
 }
 
-.site-brand-name {
+.site-brand-name,
+.layout-navbar-logo {
+  color: #fffaf3;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 27px;
   font-weight: bold;
+  text-decoration: none;
 }
 
-.site-nav {
+.site-nav,
+.layout-navbar-links {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
 
-.site-nav-link {
+.site-nav-link,
+.layout-navbar-links a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -71,10 +77,10 @@
   font-size: 14px;
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.site-nav-link:hover {
+.site-nav-link:hover,
+.layout-navbar-links a:hover {
   background: rgba(255, 250, 243, 0.12);
 }
 
@@ -118,12 +124,36 @@
   white-space: nowrap;
 }
 
-/* Footer */
-.site-footer {
+/* Login/logout controls used by the main Navbar */
+.layout-navbar-username {
+  color: #fffaf3;
+  font-weight: 600;
+}
+
+.layout-navbar-logout {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 9999px;
+  background: #f3e5d1;
+  color: #20372a;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.layout-navbar-logout:hover {
+  background: #ede2cd;
+}
+
+/* Footer: supports both Footer versions */
+.site-footer,
+.layout-footer {
   margin-top: 48px;
-  padding: 36px 7% 0;
   background: #183927;
   color: #f4eee4;
+}
+
+.site-footer {
+  padding: 36px 7% 0;
 }
 
 .site-footer-main {
@@ -192,14 +222,22 @@
   font-size: 13px;
 }
 
+.layout-footer {
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
 /* Smaller screens */
 @media (max-width: 900px) {
-  .site-header {
+  .site-header,
+  .layout-navbar {
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .site-brand {
+  .site-brand,
+  .layout-navbar-logo {
     margin-right: auto;
   }
 
@@ -207,16 +245,18 @@
     margin-left: auto;
   }
 
-  .site-nav {
+  .site-nav,
+  .layout-navbar-links {
     order: 3;
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     overflow-x: auto;
   }
 }
 
 @media (max-width: 600px) {
-  .site-header {
+  .site-header,
+  .layout-navbar {
     gap: 10px;
     padding: 10px 4%;
   }
@@ -225,7 +265,8 @@
     padding-right: 12px;
   }
 
-  .site-brand-name {
+  .site-brand-name,
+  .layout-navbar-logo {
     font-size: 22px;
   }
 
@@ -244,11 +285,8 @@
     height: 30px;
   }
 
-  .site-nav {
-    justify-content: flex-start;
-  }
-
-  .site-nav-link {
+  .site-nav-link,
+  .layout-navbar-links a {
     padding: 9px 11px;
     font-size: 13px;
   }
