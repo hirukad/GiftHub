@@ -1,69 +1,307 @@
-/* --- Navigation Bar --- */
-.layout-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 28px;
-  background-color: #1a3323; /* Deep forest green */
-  color: #f7eedd; /* Warm cream */
-  border-bottom: 1px solid rgba(247, 238, 221, 0.15);
+#root {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  text-align: left;
 }
 
+.layout-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8f3ec;
+}
+
+.layout-main {
+  flex: 1;
+}
+
+/* Header: supports both Navbar versions */
+.site-header,
+.layout-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 10px 3%;
+  border-bottom: 1px solid rgba(235, 222, 202, 0.3);
+  background: #183b28;
+  color: #fffaf3;
+}
+
+.site-brand {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  padding-right: 24px;
+  border-right: 1px solid rgba(255, 250, 243, 0.35);
+  color: #fffaf3;
+  text-decoration: none;
+}
+
+.site-brand-icon {
+  font-size: 30px;
+}
+
+.site-brand-name,
 .layout-navbar-logo {
-  color: #f7eedd;
-  font-size: 1.4rem;
+  color: #fffaf3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
   font-weight: bold;
   text-decoration: none;
-  letter-spacing: 0.5px;
 }
 
+.site-nav,
 .layout-navbar-links {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  gap: 8px;
 }
 
+.site-nav-link,
 .layout-navbar-links a {
-  color: #f7eedd;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 13px;
+  border-radius: 24px;
+  color: #f4eee4;
+  font-size: 14px;
   text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
+.site-nav-link:hover,
 .layout-navbar-links a:hover {
-  opacity: 0.8;
+  background: rgba(255, 250, 243, 0.12);
 }
 
-/* --- User Section & Logout Button --- */
+.site-nav-link.is-active {
+  background: #f3e5d1;
+  color: #202b22;
+}
+
+.site-nav-icon {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.site-account {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 9px;
+  max-width: 210px;
+  padding-left: 20px;
+  border-left: 1px solid rgba(255, 250, 243, 0.35);
+  color: #f4eee4;
+  font-size: 14px;
+}
+
+.site-account-avatar {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 2px solid #e6d8c1;
+  border-radius: 50%;
+  color: #e6d8c1;
+  font-size: 13px;
+}
+
+.site-account-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Login/logout controls used by the main Navbar */
 .layout-navbar-username {
-  color: #f7eedd;
+  color: #fffaf3;
   font-weight: 600;
 }
 
 .layout-navbar-logout {
   padding: 8px 18px;
-  border: none;
-  border-radius: 9999px; /* Pill shape matching the reference */
-  background-color: #f7eedd; /* Soft cream pill */
-  color: #1a3323; /* Dark green text/icon */
+  border: 0;
+  border-radius: 9999px;
+  background: #f3e5d1;
+  color: #20372a;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
 }
 
 .layout-navbar-logout:hover {
-  background-color: #ede2cd;
-  transform: translateY(-1px);
+  background: #ede2cd;
 }
 
-/* --- Footer --- */
+/* Footer: supports both Footer versions */
+.site-footer,
 .layout-footer {
-  text-align: center;
+  margin-top: 48px;
+  background: #183927;
+  color: #f4eee4;
+}
+
+.site-footer {
+  padding: 36px 7% 0;
+}
+
+.site-footer-main {
+  width: min(1200px, 100%);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr;
+  gap: 40px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
+.site-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #fffaf3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.site-footer-brand p,
+.site-footer-note p {
+  margin: 10px 0 0;
+  color: #d1c9bb;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.site-footer-links h2,
+.site-footer-note h2 {
+  margin: 0 0 5px;
+  color: #fffaf3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+}
+
+.site-footer-links a {
+  color: #d1c9bb;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.site-footer-links a:hover {
+  color: #fffaf3;
+  text-decoration: underline;
+}
+
+.site-footer-bottom {
+  width: min(1200px, 100%);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 auto;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 250, 243, 0.2);
+  color: #c7beaf;
+  font-size: 13px;
+}
+
+.layout-footer {
   padding: 20px;
-  background-color: #f7eedd; /* Cream background */
-  color: #1a3323; /* Dark forest green text */
-  margin-top: 32px;
+  text-align: center;
   font-weight: 500;
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+  .site-header,
+  .layout-navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .site-brand,
+  .layout-navbar-logo {
+    margin-right: auto;
+  }
+
+  .site-account {
+    margin-left: auto;
+  }
+
+  .site-nav,
+  .layout-navbar-links {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header,
+  .layout-navbar {
+    gap: 10px;
+    padding: 10px 4%;
+  }
+
+  .site-brand {
+    padding-right: 12px;
+  }
+
+  .site-brand-name,
+  .layout-navbar-logo {
+    font-size: 22px;
+  }
+
+  .site-brand-icon {
+    font-size: 25px;
+  }
+
+  .site-account {
+    max-width: 135px;
+    padding-left: 12px;
+    font-size: 12px;
+  }
+
+  .site-account-avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .site-nav-link,
+  .layout-navbar-links a {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .site-footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
+  }
+
+  .site-footer-note {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer-bottom {
+    flex-direction: column;
+    gap: 6px;
+  }
 }

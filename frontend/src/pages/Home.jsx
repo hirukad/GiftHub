@@ -7,31 +7,36 @@ import mothersDayPhoto from "../assets/mothersday-photo.jpg";
 import "./Shop.css";
 
 const occasionCards = [
-  {
-    occasionName: "Birthdays",
-    image: birthdayPhoto,
-    imageAlt: "A birthday gift",
-  },
-  {
-    occasionName: "Anniversaries",
-    image: roseBouquetImage,
-    imageAlt: "An anniversary gift",
-  },
-  {
-    occasionName: "Graduations",
-    image: graduationPhoto,
-    imageAlt: "A graduation gift",
-  },
-  {
-    occasionName: "Mother’s Day",
-    image: mothersDayPhoto,
-    imageAlt: "A Mother’s Day gift",
-  },
-  {
-    occasionName: "Christmas",
-    image: christmasPhoto,
-    imageAlt: "A Christmas gift",
-  },
+ {
+  occasionName: "Birthdays",
+  occasionKey: "birthday",
+  image: birthdayPhoto,
+  imageAlt: "A birthday gift",
+},
+{
+  occasionName: "Anniversaries",
+  occasionKey: "anniversary",
+  image: roseBouquetImage,
+  imageAlt: "An anniversary gift",
+},
+{
+  occasionName: "Graduations",
+  occasionKey: "graduation",
+  image: graduationPhoto,
+  imageAlt: "A graduation gift",
+},
+{
+  occasionName: "Mother’s Day",
+  occasionKey: "mothers-day",
+  image: mothersDayPhoto,
+  imageAlt: "A Mother’s Day gift",
+},
+{
+  occasionName: "Christmas",
+  occasionKey: "christmas",
+  image: christmasPhoto,
+  imageAlt: "A Christmas gift",
+},
 ];
 
 function Home() {
@@ -73,7 +78,7 @@ function Home() {
           {occasionCards.map((occasion) => (
             <a
               className="shop-occasion-card"
-              href="/shop"
+              href={`/shop?occasion=${occasion.occasionKey}`}
               key={occasion.occasionName}
             >
               <img
