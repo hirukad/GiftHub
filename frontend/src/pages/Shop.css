@@ -1,4 +1,11 @@
 /* Home page */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .shop-home {
   position: relative;
   min-height: 560px;
@@ -682,4 +689,24 @@
 @keyframes success-check-in {
   from { transform: scale(0.75); }
   to { transform: scale(1); }
+}
+.shop-occasion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 18px;
+}
+
+.shop-occasion-image {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.shop-occasion-name {
+  display: block;
+  padding: 14px 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: bold;
 }
