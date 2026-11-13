@@ -1,3 +1,4 @@
+
 import "./Auth.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,7 +33,9 @@ function Register() {
 
       if (response.data.success) {
         navigate("/login", {
-          state: { message: "Registration successful! Please log in." },
+          state: {
+            message: "Registration successful! Please log in.",
+          },
         });
       } else {
         console.log("REGISTER RESPONSE:", response.data);
@@ -52,51 +55,72 @@ console.log("TYPE:", typeof response.data);
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Create Your Account</h2>
-        <p>Join GiftHub today!</p>
 
-        {error && <p className="auth-error">{error}</p>}
-
-        <form onSubmit={handleSubmit}>
-          <label>Full Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter your full name"
-            value={formData.name}
-            onChange={handleChange}
-            required
+        <div className="auth-image-panel">
+          <img
+            src="/images/gifthub-auth.jpg"
+            alt="Beautifully wrapped GiftHub present"
           />
+        </div>
 
-          <label>Email Address</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+        <div className="auth-form-panel">
+          <h2>Create Your Account</h2>
+          <p className="auth-subtitle">
+            Join GiftHub today!
+          </p>
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="At least 8 characters"
-            value={formData.password}
-            onChange={handleChange}
-            minLength={8}
-            required
-          />
+          {error && <p className="auth-error">{error}</p>}
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating account..." : "Register"}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="register-name">Full Name</label>
+            <input
+              id="register-name"
+              type="text"
+              name="name"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
 
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
+            <label htmlFor="register-email">Email Address</label>
+            <input
+              id="register-email"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="register-password">Password</label>
+            <input
+              id="register-password"
+              type="password"
+              name="password"
+              placeholder="At least 8 characters"
+              value={formData.password}
+              onChange={handleChange}
+              minLength={8}
+              required
+            />
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating account..." : "Register"}
+            </button>
+          </form>
+
+          <div className="auth-divider">
+            <span>or</span>
+          </div>
+
+          <p className="auth-switch">
+            Already have an account?{" "}
+            <Link to="/login">Login</Link>
+          </p>
+        </div>
+
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+
 import "./Auth.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -52,40 +53,60 @@ function Login() {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h2>Welcome Back!</h2>
-        <p>Login to your GiftHub account</p>
 
-        {error && <p className="auth-error">{error}</p>}
-
-        <form onSubmit={handleSubmit}>
-          <label>Email Address</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+        <div className="auth-image-panel">
+          <img
+            src="/images/gifthub-auth.jpg"
+            alt="Beautifully wrapped GiftHub present"
           />
+        </div>
 
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+        <div className="auth-form-panel">
+          <h2>Welcome Back!</h2>
+          <p className="auth-subtitle">
+            Login to your GiftHub account
+          </p>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+          {error && <p className="auth-error">{error}</p>}
 
-        <p>
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="login-email">Email Address</label>
+            <input
+              id="login-email"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="login-password">Password</label>
+            <input
+              id="login-password"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+
+            <button type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </form>
+
+          <div className="auth-divider">
+            <span>or</span>
+          </div>
+
+          <p className="auth-switch">
+            Don't have an account?{" "}
+            <Link to="/register">Register</Link>
+          </p>
+        </div>
+
       </div>
     </div>
   );
