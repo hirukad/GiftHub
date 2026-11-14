@@ -6,9 +6,11 @@ import "./AdminDashboard.css";
 // Temporary category list (no categories endpoint exists yet).
 // The category_id values MUST match your categories table.
 const categoryOptions = [
-  { category_id: 1, name: "Birthday Gifts" },
-  { category_id: 2, name: "Anniversary Gifts" },
-  { category_id: 3, name: "Personalized Gifts" },
+  { category_id: 1, name: "Mugs & Drinkware" },
+  { category_id: 2, name: "Photo Frames" },
+  { category_id: 3, name: "Cushions & Home Decor" },
+  { category_id: 4, name: "Keychains & Accessories" },
+  { category_id: 5, name: "Greeting Cards & Gift Boxes" },
 ];
 
 const orderStatusOptions = ["Pending", "Processing", "Delivered", "Cancelled"];
