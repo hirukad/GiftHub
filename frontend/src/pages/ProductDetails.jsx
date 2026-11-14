@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import api from "../services/api";
 import { addToCart } from "../services/cartStorage";
 import roseBouquetImage from "../assets/rose-bouquet.png";
@@ -45,6 +45,7 @@ function ProductDetails() {
       (product) => String(product.product_id) === routeProductId
     ) ?? null
   );
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     let isCurrentRequest = true;
@@ -71,7 +72,7 @@ function ProductDetails() {
           setSelectedProduct(apiResult.data);
         }
       } catch {
-        // Keep showing the sample product while the endpoint is unavailable.
+        // Keep showing the sample product if the endpoint is unavailable.
       }
     }
 
@@ -82,13 +83,28 @@ function ProductDetails() {
     };
   }, [routeProductId]);
 
+  useEffect(() => {
+    if (!showSuccessModal) return;
+
+    const timer = window.setTimeout(() => {
+      setShowSuccessModal(false);
+    }, 6000);
+
+    return () => window.clearTimeout(timer);
+  }, [showSuccessModal]);
+
+  function handleAddToCart() {
+    addToCart(selectedProduct, 1, "", "");
+    setShowSuccessModal(true);
+  }
+
   if (!selectedProduct) {
     return (
       <main className="pdetail-page">
         <p className="pdetail-message">We couldn’t find that gift.</p>
-        <a className="pdetail-back-link" href="/shop">
+        <Link className="pdetail-back-link" to="/shop">
           Back to gifts
-        </a>
+        </Link>
       </main>
     );
   }
@@ -103,9 +119,9 @@ function ProductDetails() {
 
   return (
     <main className="pdetail-page">
-      <a className="pdetail-back-link" href="/shop">
+      <Link className="pdetail-back-link" to="/shop">
         ← Back to gifts
-      </a>
+      </Link>
 
       <section className="pdetail-layout">
         <div className="pdetail-image-area">
@@ -134,13 +150,47 @@ function ProductDetails() {
           <button
             className="pdetail-add-button"
             type="button"
-            onClick={() => addToCart(selectedProduct, 1, "", "")}
+            onClick={handleAddToCart}
             disabled={!isInStock}
           >
             Add to Cart
           </button>
         </div>
       </section>
+
+      {showSuccessModal && (
+        <div
+          className="pdetail-success-overlay"
+          onClick={() => setShowSuccessModal(false)}
+        >
+          <section
+            className="pdetail-success-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pdetail-success-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="pdetail-success-check" aria-hidden="true">
+              ✓
+            </div>
+
+            <h2 id="pdetail-success-title">Added Successfully!</h2>
+            <p>Your gift has been added to your shopping cart.</p>
+
+            <button
+              className="pdetail-continue-button"
+              type="button"
+              onClick={() => setShowSuccessModal(false)}
+            >
+              Continue Shopping
+            </button>
+
+            <Link className="pdetail-view-cart" to="/cart">
+              View Cart →
+            </Link>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

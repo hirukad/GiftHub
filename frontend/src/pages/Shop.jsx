@@ -123,19 +123,19 @@ const categories = [
   { id: 4, name: "Keychains & Accessories" },
   { id: 5, name: "Greeting Cards & Gift Boxes" },
 ];
-
-const occasionProductIds = {
-  birthday: [1, 2, 3, 8, 10, 11, 12],
-  anniversary: [1, 4, 5, 6, 7, 9, 10, 11],
-  graduation: [3, 4, 5, 8, 12],
-  "mothers-day": [1, 4, 6, 7, 10, 11],
-  christmas: [2, 3, 10, 11],
+const occasionIdByKey = {
+  birthday: 1,
+  anniversary: 2,
+  graduation: 3,
+  "mothers-day": 4,
+  christmas: 5,
 };
+
 
 function Shop() {
   const [searchParams] = useSearchParams();
   const selectedOccasion = searchParams.get("occasion");
-
+  const selectedOccasionId = occasionIdByKey[selectedOccasion] ?? null;
   const [products, setProducts] = useState(sampleProducts);
   const [searchText, setSearchText] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -199,10 +199,13 @@ function Shop() {
         price <= 10000) ||
       (selectedPriceRange === "above10000" && price > 10000);
 
-    const productsForOccasion = occasionProductIds[selectedOccasion];
-    const matchesOccasion =
-      !productsForOccasion ||
-      productsForOccasion.includes(Number(product.product_id));
+
+  const matchesOccasion =
+  selectedOccasionId === null ||
+  (Array.isArray(product.occasion_ids) &&
+    product.occasion_ids.some(
+      (occasionId) => Number(occasionId) === selectedOccasionId
+    ));
 
     return (
       matchesSearch &&
